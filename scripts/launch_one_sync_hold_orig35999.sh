@@ -208,7 +208,11 @@ cp "${PACK_DIR}/README.md" "${OUT_ROOT}/code_snapshot/"
 cp "${PACK_DIR}/evaluators/"*.py "${OUT_ROOT}/code_snapshot/"
 cp "${PACK_DIR}/evaluators/"*.sh "${OUT_ROOT}/code_snapshot/"
 cp "${PACK_DIR}/config/"*.json "${OUT_ROOT}/code_snapshot/"
-cp "${PACK_DIR}/scripts/build_microwave_deep_eef_targets.py" "${OUT_ROOT}/code_snapshot/"
+# This historical helper is not used by the rollout. Older frozen packs may not
+# contain it, so only snapshot it when present instead of aborting the eval.
+if [[ -f "${PACK_DIR}/scripts/build_microwave_deep_eef_targets.py" ]]; then
+  cp "${PACK_DIR}/scripts/build_microwave_deep_eef_targets.py" "${OUT_ROOT}/code_snapshot/"
+fi
 if [[ -f "${PACK_DIR}/scripts/build_microwave_pick_contact_eef_targets.py" ]]; then
   cp "${PACK_DIR}/scripts/build_microwave_pick_contact_eef_targets.py" "${OUT_ROOT}/code_snapshot/"
 fi
